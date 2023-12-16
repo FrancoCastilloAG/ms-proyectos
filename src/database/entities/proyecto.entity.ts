@@ -1,24 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Worker } from "./workers.entity"
-import { Tasks } from "./tasks.entity"
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany } from "typeorm";
+import { Team } from "./team.entity";
+import { Tasks } from "./tasks.entity";
 
 @Entity({
     name: 'proyecto'
 })
 export class Proyecto {
-
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id!: string;
 
     @Column({ type: 'text' })
-    name: string;
+    name!: string;
 
     @Column({ type: 'text' })
-    idOwner: string;
+    idOwner!: string;
 
-    @OneToMany(() => Worker, (worker) => worker.proyecto)
-    workers: Worker[];
+    @ManyToMany(() => Team, (teams) => teams.proyectos)
+    teams!: Team[];
 
-    @OneToMany(() => Tasks, (tasks) => tasks.proyecto)
-    tasks: Tasks[];
+    @ManyToMany(() => Tasks, (tasks) => tasks.proyecto)
+    tasks!: Tasks[];
 }

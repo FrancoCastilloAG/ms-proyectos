@@ -2,7 +2,8 @@ import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { Proyecto } from './entities/proyecto.entity';
 import { Tasks } from './entities/tasks.entity';
-import { Worker } from './entities/workers.entity';
+import { Team } from './entities/team.entity';
+import { TeamMember } from './entities/teammember.entity';
 
 dotenv.config();
 
@@ -17,13 +18,13 @@ const {
 const dataSource = new DataSource({
   type: 'postgres',
   host: TYPEORM_HOST,
-  port: +TYPEORM_PORT,
+  port: 5432 ,
   username: TYPEORM_USERNAME,
   password: TYPEORM_PASSWORD,
   database: TYPEORM_DATABASE,
   logging: true,
   synchronize: false,
-  entities: [Proyecto,Worker,Tasks],
+  entities: [Proyecto,Tasks,Team,TeamMember],
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
 });
 
